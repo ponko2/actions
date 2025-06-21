@@ -1,0 +1,22 @@
+{
+  "name": "actions",
+  "version": "0.1.0",
+  "devDependencies": {
+    "@commitlint/cli": "19.8.1",
+    "@commitlint/config-conventional": "19.8.1",
+    "husky": "9.1.7",
+    "lint-staged": "16.1.2",
+    "npm-run-all2": "8.0.4",
+    "prettier": "3.5.3"
+  },
+  "private": true,
+  "scripts": {
+    "fix": "run-p --aggregate-output -c -l fix:*",
+    "fix:prettier": "prettier --write .",
+    "lint": "run-p --aggregate-output -c -l lint:*",
+    "lint:prettier": "prettier --check .",
+    "lint:yamllint": "yamllint .",
+    "prepare": "node .husky/install.mjs"
+  },
+  "type": "module"
+}
