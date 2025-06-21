@@ -1,0 +1,20 @@
+name: ghalint
+description: Lint GitHub Actions with ghalint
+runs:
+  using: composite
+  steps:
+    - name: Setup ghalint
+      env:
+        GHALINT_VERSION: v1.4.1
+        GH_TOKEN: ${{ github.token }}
+      shell: bash
+      run: |
+        TMPDIR=$(mktemp -d)
+        gh release download "$GHALINT_VERSION" -R suzuki-shunsuke/ghalint -p "ghalint_*_linux_amd64.tar.gz" -O "$TMPDIR/ghalint.tar.gz"
+        gh attestation verify "$TMPDIR/ghalint.tar.gz" -R suzuki-shunsuke/ghalint --signer-workflow suzuki-shunsuke/go-release-workflow/.github/workflows/release.yaml
+        tar -C /usr/local/bin -xzf "$TMPDIR/ghalint.tar.gz"
+    - name: Run ghalint
+      shell: bash
+      run: |
+        ghalint run
+        ghalint act

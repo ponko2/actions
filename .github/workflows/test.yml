@@ -1,0 +1,192 @@
+name: Test
+on:
+  merge_group: {}
+  pull_request: {}
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+permissions: {}
+jobs:
+  required:
+    name: "Required Checks: Test"
+    if: ${{ always() }}
+    needs:
+      - verify-author
+      - changed-files
+      - actionlint
+      - ghalint
+      - zizmor
+      - commitlint
+      - editorconfig
+      - prettier
+      - yamllint
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Fail if any required jobs failed or cancelled
+        if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        run: exit 1
+  verify-author:
+    name: Verify author
+    environment: ${{ github.event_name == 'pull_request' &&
+      endsWith(github.event.pull_request.user.login, '[bot]') &&
+      contains(github.event.pull_request.labels.*.name, 'dependencies') &&
+      contains(github.event.pull_request.labels.*.name, 'github_actions') && 'ci' || null }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Author has been verified
+        run: exit 0
+  changed-files:
+    name: Get changed files
+    needs: verify-author
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    outputs:
+      # reference: https://github.com/tj-actions/changed-files#outputs-
+      actions: ${{ steps.changed-files.outputs.actions_any_modified == 'true' }}
+      yamllint: ${{ steps.changed-files.outputs.yamllint_any_modified == 'true' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 50 # Assume PRs are less than 50 commits
+          persist-credentials: true
+      - name: Get relevant files changed per group
+        id: changed-files
+        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c # v46.0.5
+        with:
+          files_yaml: |
+            common: &common
+              - .github/workflows/test.yml
+            actions:
+              - "**/action.{yaml,yml}"
+              - ".github/workflows/*.{yaml,yml}"
+            yamllint:
+              - *common
+              - "**/*.{yaml,yml}"
+  actionlint:
+    name: actionlint
+    if: ${{ needs.changed-files.outputs.actions == 'true' }}
+    needs: changed-files
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Run actionlint
+        uses: ./actionlint
+  ghalint:
+    name: ghalint
+    if: ${{ needs.changed-files.outputs.actions == 'true' }}
+    needs: changed-files
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Run ghalint
+        uses: ./ghalint
+  zizmor:
+    name: zizmor
+    if: ${{ needs.changed-files.outputs.actions == 'true' }}
+    needs: changed-files
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Run zizmor
+        uses: ./zizmor
+  commitlint:
+    name: commitlint
+    if: ${{ github.event_name == 'pull_request' }}
+    needs: verify-author
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 50 # Assume PRs are less than 50 commits
+          filter: blob:none
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: lts/*
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate all commits from PR
+        run: >-
+          npx --no commitlint
+          --from ${{ github.event.pull_request.base.sha }}
+          --to ${{ github.event.pull_request.head.sha }}
+          --verbose
+  editorconfig:
+    name: EditorConfig
+    needs: verify-author
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: editorconfig-checker/action-editorconfig-checker@0ab3427a3f09b17c21d489172245be511e0a16ea # v2.0.0
+      - run: editorconfig-checker
+  prettier:
+    name: Prettier
+    needs: verify-author
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: lts/*
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Prettier
+        run: npm run lint:prettier
+  yamllint:
+    name: yamllint
+    if: ${{ needs.changed-files.outputs.yamllint == 'true' }}
+    needs: changed-files
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Run yamllint
+        run: yamllint --format=github --strict .
