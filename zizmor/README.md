@@ -22,5 +22,5 @@ jobs:
         with:
           persist-credentials: false
       - name: Run zizmor
-        uses: ponko2/zizmor/actionlint@main
+        uses: ponko2/actions/zizmor@main
 ```

@@ -22,5 +22,5 @@ jobs:
         with:
           persist-credentials: false
       - name: Run ghalint
-        uses: ponko2/ghalint/actionlint@main
+        uses: ponko2/actions/ghalint@main
 ```
