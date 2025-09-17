@@ -1,10 +1,8 @@
 ---
 extends: default
 ignore: |
-  **/action.yml
   node_modules/
   pnpm-lock.yaml
-  pnpm-workspace.yaml
 rules:
   comments:
     level: error
@@ -12,7 +10,9 @@ rules:
   comments-indentation: disable
   document-start:
     ignore: |
+      **/action.yml
       .github/
+      pnpm-workspace.yaml
     level: error
   line-length: disable
   octal-values:
