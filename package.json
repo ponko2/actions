@@ -9,7 +9,7 @@
     "npm-run-all2": "8.0.4",
     "prettier": "3.6.2"
   },
-  "packageManager": "pnpm@10.18.1",
+  "packageManager": "pnpm@10.18.2",
   "private": true,
   "scripts": {
     "fix": "run-p --aggregate-output -c -l fix:*",
