@@ -12,6 +12,7 @@ rules:
     ignore: |
       **/action.yml
       .github/
+      lefthook.yml
       pnpm-workspace.yaml
     level: error
   line-length: disable
