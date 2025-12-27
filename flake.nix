@@ -29,6 +29,7 @@
         {
           devShells.default = pkgs.mkShellNoCC {
             packages = with pkgs; [
+              editorconfig-checker
               nodejs
               pnpm
               yamllint

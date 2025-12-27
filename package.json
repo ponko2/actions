@@ -4,8 +4,7 @@
   "devDependencies": {
     "@commitlint/cli": "20.2.0",
     "@commitlint/config-conventional": "20.2.0",
-    "husky": "9.1.7",
-    "lint-staged": "16.2.7",
+    "lefthook": "2.0.13",
     "npm-run-all2": "8.0.4",
     "prettier": "3.7.4"
   },
@@ -23,8 +22,7 @@
     "fix:prettier": "prettier --write .",
     "lint": "run-p --aggregate-output -c -l lint:*",
     "lint:prettier": "prettier --check .",
-    "lint:yamllint": "yamllint .",
-    "prepare": "node .husky/install.mjs"
+    "lint:yamllint": "yamllint ."
   },
   "type": "module"
 }
