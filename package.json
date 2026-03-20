@@ -15,7 +15,7 @@
     "@commitlint/config-conventional": "20.5.0",
     "lefthook": "2.1.4",
     "npm-run-all2": "8.0.4",
-    "oxfmt": "^0.41.0"
+    "oxfmt": "0.41.0"
   },
   "devEngines": {
     "runtime": {
