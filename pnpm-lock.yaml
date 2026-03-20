@@ -24,7 +24,7 @@ importers:
         specifier: 8.0.4
         version: 8.0.4
       oxfmt:
-        specifier: ^0.41.0
+        specifier: 0.41.0
         version: 0.41.0
 
 packages:
