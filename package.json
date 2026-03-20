@@ -1,12 +1,21 @@
 {
   "name": "actions",
   "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fix": "run-p --aggregate-output -c -l fix:*",
+    "fix:oxfmt": "oxfmt",
+    "lint": "run-p --aggregate-output -c -l lint:*",
+    "lint:oxfmt": "oxfmt --check",
+    "lint:yamllint": "yamllint ."
+  },
   "devDependencies": {
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
     "lefthook": "2.1.4",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.8.1"
+    "oxfmt": "^0.41.0"
   },
   "devEngines": {
     "runtime": {
@@ -15,14 +24,5 @@
       "onFail": "download"
     }
   },
-  "packageManager": "pnpm@10.32.1",
-  "private": true,
-  "scripts": {
-    "fix": "run-p --aggregate-output -c -l fix:*",
-    "fix:prettier": "prettier --write .",
-    "lint": "run-p --aggregate-output -c -l lint:*",
-    "lint:prettier": "prettier --check .",
-    "lint:yamllint": "yamllint ."
-  },
-  "type": "module"
+  "packageManager": "pnpm@10.32.1"
 }
