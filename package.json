@@ -6,7 +6,7 @@
     "@commitlint/config-conventional": "20.5.0",
     "lefthook": "2.1.4",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.8.1"
+    "oxfmt": "^0.41.0"
   },
   "devEngines": {
     "runtime": {
@@ -19,9 +19,9 @@
   "private": true,
   "scripts": {
     "fix": "run-p --aggregate-output -c -l fix:*",
-    "fix:prettier": "prettier --write .",
+    "fix:oxfmt": "oxfmt",
     "lint": "run-p --aggregate-output -c -l lint:*",
-    "lint:prettier": "prettier --check .",
+    "lint:oxfmt": "oxfmt --check",
     "lint:yamllint": "yamllint ."
   },
   "type": "module"
