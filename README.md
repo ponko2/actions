@@ -7,4 +7,5 @@
 
 - [ponko2/actions/actionlint](actionlint)
 - [ponko2/actions/ghalint](ghalint)
+- [ponko2/actions/setup-nix](setup-nix)
 - [ponko2/actions/zizmor](zizmor)
