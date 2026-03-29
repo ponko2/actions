@@ -17,23 +17,28 @@
       ];
       perSystem =
         { pkgs, ... }:
-        let
-          pnpm = pkgs.runCommand "pnpm" { buildInputs = [ pkgs.corepack ]; } ''
-            mkdir -p $out/bin
-            corepack enable pnpm --install-directory=$out/bin
-          '';
-        in
         {
+          apps = {
+            commitlint = {
+              type = "app";
+              program = "${pkgs.commitlint}/bin/commitlint";
+            };
+            oxfmt = {
+              type = "app";
+              program = "${pkgs.oxfmt}/bin/oxfmt";
+            };
+          };
           devShells.default = pkgs.mkShellNoCC {
             packages = with pkgs; [
+              commitlint
               editorconfig-checker
+              lefthook
               nixfmt-rfc-style
-              pnpm
+              oxfmt
               yamllint
             ];
             shellHook = ''
-              pnpm install
-              export PATH="$PWD/node_modules/.bin:$PATH"
+              lefthook install
             '';
           };
           formatter = pkgs.nixfmt-tree;
