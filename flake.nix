@@ -45,16 +45,13 @@
               commitlint
               deadnix
               editorconfig-checker
-              lefthook
+              hk
               nixd
               nixfmt
               oxfmt
               statix
               yamllint
             ];
-            shellHook = ''
-              lefthook install
-            '';
           };
           formatter = pkgs.nixfmt-tree;
           packages = {
