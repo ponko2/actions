@@ -4,7 +4,7 @@ runs:
   using: composite
   steps:
     - name: Run zizmor
-      uses: docker://ghcr.io/zizmorcore/zizmor:1.24.1@sha256:128ebbe369a95f9d4427737e794537256095b55f779a247aebc960dc4ea1f7b3
+      uses: docker://ghcr.io/zizmorcore/zizmor:1.29.0@sha256:863026d54f91271b10b60b67ad8054cb37120167e162482597db102b3026a284
       env:
         GH_TOKEN: ${{ github.token }}
       with:
