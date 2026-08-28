@@ -8,6 +8,10 @@ inputs:
     description: Name of the Cachix cache
     required: false
     default: ponko2
+  cachix-skip-push:
+    description: Set to `true` to only pull from Cachix without pushing any build results.
+    required: false
+    default: "false"
   prefetch-dependencies:
     description: Run `nix --quiet develop --command true` after setup.
     required: false
@@ -22,6 +26,7 @@ runs:
       with:
         name: ${{ inputs.cachix-name }}
         authToken: ${{ inputs.cachix-auth-token }}
+        skipPush: ${{ inputs.cachix-skip-push }}
     - name: Prefetch Nix dependencies
       if: ${{ inputs.prefetch-dependencies == 'true' }}
       shell: bash
