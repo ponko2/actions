@@ -81,7 +81,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Run actionlint
-        uses: ./actionlint
+        uses: $/actionlint
   ghalint:
     name: ghalint
     if: ${{ always() && !failure() && !cancelled() &&
@@ -97,7 +97,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Run ghalint
-        uses: ./ghalint
+        uses: $/ghalint
   zizmor:
     name: zizmor
     if: ${{ always() && !failure() && !cancelled() &&
@@ -113,7 +113,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Run zizmor
-        uses: ./zizmor
+        uses: $/zizmor
   commitlint:
     name: commitlint
     if: ${{ github.event_name == 'pull_request' }}
@@ -129,7 +129,7 @@ jobs:
           filter: blob:none
           persist-credentials: false
       - name: Set up Nix
-        uses: ./setup-nix
+        uses: $/setup-nix
         with:
           cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           prefetch-dependencies: false
@@ -153,7 +153,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up Nix
-        uses: ./setup-nix
+        uses: $/setup-nix
         with:
           cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           prefetch-dependencies: false
@@ -192,7 +192,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up Nix
-        uses: ./setup-nix
+        uses: $/setup-nix
         with:
           cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           prefetch-dependencies: false
@@ -210,7 +210,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up Nix
-        uses: ./setup-nix
+        uses: $/setup-nix
         with:
           cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           prefetch-dependencies: false
@@ -231,7 +231,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up Nix
-        uses: ./setup-nix
+        uses: $/setup-nix
         with:
           cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
           prefetch-dependencies: false
