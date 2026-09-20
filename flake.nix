@@ -65,7 +65,6 @@
               deadnix
               editorconfig-checker
               hk
-              nixd
               nixfmt
               oxfmt
               statix
