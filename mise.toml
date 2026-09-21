@@ -1,0 +1,14 @@
+[settings]
+lockfile = true
+
+[tools]
+"npm:@commitlint/cli" = "latest"
+editorconfig-checker = "latest"
+hk = "latest"
+oxfmt = "latest"
+python = "latest"
+uv = "latest"
+
+[tools.yamllint]
+version = "latest"
+depends = ["python", "uv"]
