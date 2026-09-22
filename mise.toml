@@ -9,6 +9,7 @@ ghalint = "latest"
 hk = "latest"
 oxfmt = "latest"
 python = "latest"
+shellcheck = "latest"
 uv = "latest"
 zizmor = "latest"
 
