@@ -21,7 +21,7 @@ jobs:
       - commitlint
       - editorconfig
       - oxfmt
-      - yamllint
+      - ryl
     runs-on: ubuntu-slim
     timeout-minutes: 60
     steps:
@@ -38,7 +38,7 @@ jobs:
     outputs:
       # reference: https://github.com/tj-actions/changed-files#outputs-
       actions: ${{ steps.changed-files.outputs.actions_any_modified == 'true' }}
-      yamllint: ${{ steps.changed-files.outputs.yamllint_any_modified == 'true' }}
+      ryl: ${{ steps.changed-files.outputs.ryl_any_modified == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -55,7 +55,7 @@ jobs:
             actions:
               - "**/action.{yaml,yml}"
               - ".github/workflows/*.{yaml,yml}"
-            yamllint:
+            ryl:
               - *common
               - "**/*.{yaml,yml}"
   actionlint:
@@ -169,10 +169,10 @@ jobs:
         uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
       - name: Run Oxfmt
         run: oxfmt --check
-  yamllint:
-    name: yamllint
+  ryl:
+    name: ryl
     if: ${{ always() && !failure() && !cancelled() &&
-      (needs.changed-files.result == 'skipped' || needs.changed-files.outputs.yamllint == 'true') }}
+      (needs.changed-files.result == 'skipped' || needs.changed-files.outputs.ryl == 'true') }}
     needs: changed-files
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -185,5 +185,5 @@ jobs:
           persist-credentials: false
       - name: Set up mise
         uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
-      - name: Run yamllint
-        run: yamllint --format=github --strict .
+      - name: Run ryl
+        run: ryl --format=github --strict .
