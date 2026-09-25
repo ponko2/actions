@@ -8,7 +8,7 @@ steps {
   ["ghalint_action"] = Builtins.ghalint_action
   ["ghalint_workflow"] = Builtins.ghalint_workflow
   ["oxfmt"] = Builtins.oxfmt
-  ["yamllint"] = Builtins.yamllint
+  ["ryl"] = Builtins.ryl
   ["zizmor"] = Builtins.zizmor
 }
 
