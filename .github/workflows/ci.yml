@@ -52,11 +52,16 @@ jobs:
           files_yaml: |
             common: &common
               - .github/workflows/ci.yml
+            dependencies: &dependencies
+              - mise.lock
+              - mise.toml
             actions:
+              - *dependencies
               - "**/action.{yaml,yml}"
               - ".github/workflows/*.{yaml,yml}"
             ryl:
               - *common
+              - *dependencies
               - "**/*.{yaml,yml}"
   actionlint:
     name: actionlint
