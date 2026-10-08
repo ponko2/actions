@@ -78,7 +78,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run actionlint
         run: |
           echo "::add-matcher::.github/actionlint-matcher.json"
@@ -98,7 +98,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run ghalint
         run: |
           ghalint run
@@ -118,7 +118,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run zizmor
         env:
           GH_TOKEN: ${{ github.token }}
@@ -138,7 +138,7 @@ jobs:
           filter: blob:none
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Validate all commits from PR
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
@@ -156,7 +156,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run EditorConfig checker
         run: editorconfig-checker
   oxfmt:
@@ -171,7 +171,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run Oxfmt
         run: oxfmt --check
   ryl:
@@ -189,6 +189,6 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1
+        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run ryl
         run: ryl --format=github --strict .
