@@ -28,6 +28,7 @@ jobs:
       - name: Fail if any required jobs failed or cancelled
         if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
         run: exit 1
+        shell: bash
   changed-files:
     name: Get changed files
     if: ${{ github.event_name == 'pull_request' }}
@@ -83,6 +84,7 @@ jobs:
         run: |
           ghalint run
           ghalint act
+        shell: bash
   jactionlint:
     name: jactionlint
     if: ${{ always() && !failure() && !cancelled() &&
@@ -101,6 +103,7 @@ jobs:
         uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run jactionlint
         run: jactionlint --format=github
+        shell: bash
   zizmor:
     name: zizmor
     if: ${{ always() && !failure() && !cancelled() &&
@@ -121,6 +124,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: zizmor -p --format=github --min-severity=low .
+        shell: bash
   commitlint:
     name: commitlint
     if: ${{ github.event_name == 'pull_request' }}
@@ -142,6 +146,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: commitlint --from "$BASE_SHA" --to "$HEAD_SHA" --verbose
+        shell: bash
   editorconfig:
     name: EditorConfig
     runs-on: ubuntu-26.04
@@ -157,6 +162,7 @@ jobs:
         uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run EditorConfig checker
         run: editorconfig-checker
+        shell: bash
   oxfmt:
     name: Oxfmt
     runs-on: ubuntu-26.04
@@ -172,6 +178,7 @@ jobs:
         uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run Oxfmt
         run: oxfmt --check
+        shell: bash
   ryl:
     name: ryl
     if: ${{ always() && !failure() && !cancelled() &&
@@ -190,3 +197,4 @@ jobs:
         uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - name: Run ryl
         run: ryl --format=github --strict .
+        shell: bash
