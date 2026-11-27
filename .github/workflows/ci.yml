@@ -81,7 +81,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@v5.2.10
+        uses: jdx/mise-action@v5.3.0
         with:
           cache_key_prefix: mise-v1-${{ github.job }}
       - name: Run jactionlint
@@ -107,7 +107,7 @@ jobs:
           filter: blob:none
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@v5.2.10
+        uses: jdx/mise-action@v5.3.0
         with:
           cache_key_prefix: mise-v1-${{ github.job }}
       - name: Validate all commits from PR
@@ -130,7 +130,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@v5.2.10
+        uses: jdx/mise-action@v5.3.0
         with:
           cache_key_prefix: mise-v1-${{ github.job }}
       - name: Run EditorConfig checker
@@ -150,7 +150,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@v5.2.10
+        uses: jdx/mise-action@v5.3.0
         with:
           cache_key_prefix: mise-v1-${{ github.job }}
       - name: Run Oxfmt
@@ -173,7 +173,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up mise
-        uses: jdx/mise-action@v5.2.10
+        uses: jdx/mise-action@v5.3.0
         with:
           cache_key_prefix: mise-v1-${{ github.job }}
       - name: Run ryl
